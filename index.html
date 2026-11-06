@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="My Beauty Routine">
+<title>My Beauty Routine</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f6efe6;--card:#fffaf3;--tx:#5a4339;--mu:#9a8579;--ro:#d9a9a3;--rd:#b57378;--nu:#ead6c3;--ln:#eadccd;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#231c19;--card:#2f2622;--tx:#f1e6dc;--mu:#b4a094;--ro:#b98a86;--rd:#e0a3a6;--nu:#3d322c;--ln:#41352e;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#231c19;--card:#2f2622;--tx:#f1e6dc;--mu:#b4a094;--ro:#b98a86;--rd:#e0a3a6;--nu:#3d322c;--ln:#41352e;color-scheme:dark}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:var(--bg);color:var(--tx);font:400 15px/1.45 Jost,-apple-system,Helvetica,sans-serif}
+main{max-width:520px;margin:auto;padding:18px 16px 96px}
+h1,h2,h3{font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;margin:0}
+h1{font-size:32px}h2{font-size:24px;margin:18px 0 8px}h3{font-size:19px}
+.card{background:var(--card);border:1px solid var(--ln);border-radius:22px;padding:14px 16px;margin:10px 0;animation:in .35s ease}
+@keyframes in{from{opacity:0;transform:translateY(6px)}}
+.mu{color:var(--mu);font-size:13px}.row{display:flex;align-items:center;gap:10px}.sp{justify-content:space-between}
+.it{padding:9px 0;border-top:1px solid var(--ln)}.it:first-of-type{border-top:0}
+.ck{width:24px;height:24px;border-radius:50%;border:1.5px solid var(--ro);background:none;flex:none;color:#fff;font-size:14px;padding:0}
+.ck.on{background:var(--rd);border-color:var(--rd)}.done{text-decoration:line-through;opacity:.55}
+button,.btn{font:inherit;cursor:pointer}
+.b{background:var(--rd);color:#fff;border:0;border-radius:999px;padding:8px 16px;font-size:14px}
+.g{background:var(--nu);color:var(--tx);border:0;border-radius:999px;padding:6px 12px;font-size:13px}
+.x{background:none;border:0;color:var(--mu);font-size:13px;padding:4px}
+.seg{display:flex;gap:6px;overflow-x:auto;margin:12px 0}.seg button{background:var(--nu);color:var(--tx);border:0;border-radius:999px;padding:7px 14px;white-space:nowrap;font-size:14px}.seg .on{background:var(--rd);color:#fff}
+.bar{height:8px;border-radius:9px;background:var(--nu);overflow:hidden;margin-top:8px}.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--ro),var(--rd))}
+.tag{display:inline-block;background:var(--nu);border-radius:99px;padding:2px 9px;font-size:12px;color:var(--mu)}
+.wk{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;text-align:center}
+.wk div{padding:6px 0;border-radius:14px;font-size:13px;cursor:pointer}.wk .t{background:var(--nu)}.wk .s{outline:2px solid var(--rd)}.wk b{display:block;font-weight:500}.dot{width:6px;height:6px;border-radius:9px;background:var(--rd);margin:2px auto 0}
+nav{position:fixed;left:0;right:0;bottom:0;background:var(--card);border-top:1px solid var(--ln);display:flex;justify-content:space-around;padding:8px 4px calc(8px + env(safe-area-inset-bottom,0px));z-index:5}
+nav button{background:none;border:0;color:var(--mu);font-size:11px;display:flex;flex-direction:column;align-items:center;gap:2px;flex:1}nav span{font-size:20px}nav .on{color:var(--rd)}
+#md{position:fixed;inset:0;background:#0007;display:none;align-items:flex-end;z-index:9}#md.o{display:flex}
+#md>div{background:var(--card);width:100%;max-width:520px;margin:auto;border-radius:24px 24px 0 0;padding:18px;max-height:88vh;overflow:auto}
+label{display:block;font-size:13px;color:var(--mu);margin:10px 0 3px}
+input,select,textarea{width:100%;font:inherit;color:var(--tx);background:var(--bg);border:1px solid var(--ln);border-radius:12px;padding:9px}
+.pg{display:grid;grid-template-columns:1fr 1fr;gap:8px}.pg img,.ph{width:100%;border-radius:14px;display:block}
+.mg{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;text-align:center}.mg div{padding:8px 0;border-radius:12px;font-size:13px;cursor:pointer}.mg .h{color:var(--mu);cursor:default;font-size:11px}
+.al{background:#d9a9a333;border:1px solid var(--ro);border-radius:16px;padding:10px 12px;margin:10px 0;font-size:14px}
+.cols{display:flex;align-items:flex-end;gap:3px;height:70px}.cols i{flex:1;background:var(--ro);border-radius:4px 4px 0 0;min-height:2px}
+</style></head><body><main id="app"></main>
+<nav id="nav"></nav><div id="md"><div id="mdc"></div></div>
+<script>
+const K='mbr_v1',$=s=>document.querySelector(s),uid=()=>Math.random().toString(36).slice(2,9);
+const iso=d=>{d=d||new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')};
+const dt=s=>new Date(s+'T12:00'),addD=(s,n)=>{const d=dt(s);d.setDate(d.getDate()+n);return iso(d)},wd=s=>dt(s).getDay();
+const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const DS=['D','L','M','M','J','V','S'],DN=['domingo','lunes','martes','miércoles','jueves','viernes','sábado'];
+const fl=(s,o)=>dt(s).toLocaleDateString('es-CO',o||{day:'numeric',month:'short'});
+const mk=(n,x)=>Object.assign({id:uid(),n},x||{});
+function def(){return{set:{name:'',am:'07:00',pm:'21:00',heat:2},
+r:{am:['Limpieza facial Garnier','Sérum NIVEA Luminous630','Hidratante con centella asiática y ácido hialurónico','Protector solar Farmatodo FPS 50','Corrector de ojeras Essence con cafeína al 2%'].map(n=>mk(n)),
+pm:[mk('Desmaquillante / agua micelar NIVEA'),mk('Limpieza facial Garnier'),mk('Sérum NIVEA Luminous630',{note:'Sujeto a compatibilidad e indicaciones del producto'}),mk('Hidratante con centella asiática y ácido hialurónico')]},
+done:{},
+tr:[mk('Mascarilla Medicube PDRN rosa',{day:0,freq:'Semanal (domingo)',st:'Activo'}),mk('Mascarillas Biodance azules',{st:'Pendiente: agregar referencia exacta'}),mk('Gua sha',{st:'Próximamente'}),mk('Gel reductor facial',{st:'Próximamente'}),mk('Dispositivo facial PONTO',{st:'Pendiente de confirmar modelo, funciones e instrucciones'})].map(t=>Object.assign({day:null,dur:'',freq:'',instr:'',log:{},dates:[],skip:{}},t)),
+h:{mode:'crespo',crespo:['Lavado (Shampoo Herbal Essences)','Acondicionador (producto pendiente)','Mascarilla / nutrición (Tratamiento Scala azul)','Desenredado','Hidratación (producto pendiente)','Definición de rizos','Espuma para rizos'].map(n=>mk(n)),
+liso:['Lavado','Tratamiento','Protección térmica (producto pendiente)','Secado','Planchado','Recuperación e hidratación posterior'].map(n=>mk(n)),done:{},wash:{crespo:[],liso:[]},log:[]},
+inv:[['Limpieza facial','Garnier','Limpieza'],['Sérum Luminous630','NIVEA','Sérum'],['Hidratante centella asiática y ác. hialurónico','','Hidratante'],['Protector solar FPS 50','Farmatodo','Protección solar'],['Corrector de ojeras con cafeína 2%','Essence','Maquillaje'],['Agua micelar','NIVEA','Desmaquillante'],['Shampoo','Herbal Essences','Cabello'],['Tratamiento nutrición (azul)','Scala','Cabello'],['Espuma para rizos','','Cabello'],['Mascarilla PDRN rosa','Medicube','Mascarilla']].map(a=>({id:uid(),n:a[0],brand:a[1],cat:a[2],st:'en uso',ing:'',buy:'',open:'',end:'',freq:''})),
+jr:[]}}
+let S;try{S=JSON.parse(localStorage.getItem(K))}catch(e){}S=S||def();
+function save(){try{localStorage.setItem(K,JSON.stringify(S))}catch(e){alert('No hay espacio. Exporta tus datos y elimina fotos antiguas.')}}
+let tab='home',sub='rut',cal='mes',sel=iso(),vm=iso().slice(0,7),cmpA='',cmpB='';
+const today=()=>iso();
+const dn=(d)=>S.done[d]||{};
+function faceDone(d){const t=S.r.am.length+S.r.pm.length,x=[...S.r.am,...S.r.pm].filter(s=>dn(d)[s.id]).length;return[x,t]}
+const sched=(t,d)=>!(t.skip&&t.skip[d])&&((t.day!=null&&t.day==wd(d))||(t.dates||[]).includes(d));
+function nextTr(){for(let i=0;i<60;i++){const d=addD(today(),i),l=S.tr.filter(t=>sched(t,d)&&!(t.log[d]&&t.log[d].done));if(l.length)return[d,l]}return null}
+/* modal */
+function form(title,fs,v,cb){let ph=v&&v.photo||'';const h=fs.map(f=>{const k=f[0],val=v&&v[k]!=null?v[k]:'';let i;
+if(f[2]=='ta')i=`<textarea id="f_${k}" rows="3">${esc(val)}</textarea>`;else if(f[2]=='file')i=`<input type="file" accept="image/*" id="f_${k}">`;
+else if(f[2].startsWith('s:'))i=`<select id="f_${k}">${f[2].slice(2).split(',').map(o=>`<option ${o==val?'selected':''}>${esc(o)}</option>`).join('')}</select>`;
+else i=`<input id="f_${k}" type="${f[2]}" value="${esc(val)}">`;return`<label>${f[1]}</label>${i}`}).join('');
+$('#mdc').innerHTML=`<h3>${title}</h3>${h}<div class="row sp" style="margin-top:16px"><button class="g" onclick="cm()">Cancelar</button><button class="b" id="sv">Guardar</button></div>`;$('#md').classList.add('o');
+fs.forEach(f=>{if(f[2]=='file')$('#f_'+f[0]).onchange=e=>sq(e.target.files[0],u=>ph=u)});
+$('#sv').onclick=()=>{const o={};fs.forEach(f=>{o[f[0]]=f[2]=='file'?ph:$('#f_'+f[0]).value});cb(o);save();cm();R()}}
+const cm=()=>$('#md').classList.remove('o');
+function sq(file,cb){if(!file)return;const r=new FileReader();r.onload=()=>{const im=new Image();im.onload=()=>{const m=640,k=Math.min(1,m/Math.max(im.width,im.height)),c=document.createElement('canvas');c.width=im.width*k;c.height=im.height*k;c.getContext('2d').drawImage(im,0,0,c.width,c.height);cb(c.toDataURL('image/jpeg',.7))};im.src=r.result};r.readAsDataURL(file)}
+/* actions */
+function tg(d,id){const o=S.done[d]=S.done[d]||{};o[id]=!o[id];save();R()}
+function addStep(list){form('Añadir producto / paso',[['n','Nombre','text'],['note','Nota (opcional)','text']],{},o=>{if(o.n)list.push(mk(o.n,{note:o.note}))})}
+function edStep(list,id){const s=list.find(x=>x.id==id);form('Editar',[['n','Nombre','text'],['note','Nota','text']],s,o=>Object.assign(s,o))}
+function rmStep(list,id){if(confirm('¿Eliminar?')){list.splice(list.findIndex(x=>x.id==id),1);save();R()}}
+const L={am:()=>S.r.am,pm:()=>S.r.pm,crespo:()=>S.h.crespo,liso:()=>S.h.liso};
+function steps(key,date,doneObj,edit){return L[key]().map(s=>`<div class="it row"><button class="ck ${doneObj[s.id]?'on':''}" onclick="tg2('${key}','${date}','${s.id}')">${doneObj[s.id]?'✓':''}</button><div style="flex:1" class="${doneObj[s.id]?'done':''}">${esc(s.n)}${s.note?`<div class="mu">${esc(s.note)}</div>`:''}</div>${edit?`<button class="x" onclick="edS('${key}','${s.id}')">Editar</button><button class="x" onclick="rmS('${key}','${s.id}')">✕</button>`:''}</div>`).join('')}
+function tg2(k,d,id){if(k=='am'||k=='pm')tg(d,id);else{const o=S.h.done[d]=S.h.done[d]||{};o[id]=!o[id];save();R()}}
+const edS=(k,id)=>edStep(L[k](),id),rmS=(k,id)=>rmStep(L[k](),id);
+function edStep(list,id){const s=list.find(x=>x.id==id);form('Editar',[['n','Nombre','text'],['note','Nota','text']],s,o=>Object.assign(s,o))}
+const adS=k=>addStep(L[k]());
+function routCard(k,title,edit){const d=today();return`<div class="card"><div class="row sp"><h3>${title}</h3><span class="tag">${S.set[k]}</span></div>${steps(k,d,dn(d),edit)}${edit?`<button class="g" style="margin-top:8px" onclick="adS('${k}')">+ Añadir producto</button>`:''}</div>`}
+/* tratamientos */
+function trCard(t){const d=today(),l=t.log[d]||{};return`<div class="card"><div class="row sp"><h3>${esc(t.n)}</h3><span class="tag">${esc(t.st||'')}</span></div>
+<div class="mu">${t.day!=null?'Programada: '+DN[t.day]+' · ':''}${t.freq?'Frecuencia: '+esc(t.freq)+' · ':''}${t.dur?'Duración: '+esc(t.dur):'Duración: pendiente'}</div>
+${t.instr?`<div style="margin-top:6px">${esc(t.instr)}</div>`:'<div class="mu">Instrucciones: pendientes de completar</div>'}
+${t.dates.length?`<div class="mu">Fechas extra: ${t.dates.map(x=>fl(x)).join(', ')}</div>`:''}
+<div class="row" style="margin-top:8px;flex-wrap:wrap"><button class="ck ${l.done?'on':''}" onclick="trDone('${t.id}')">${l.done?'✓':''}</button><span class="mu">Hecho hoy</span>
+<button class="g" onclick="trEd('${t.id}')">Editar</button><button class="g" onclick="trReact('${t.id}')">Reacción</button><button class="g" onclick="trSn('${t.id}')">Posponer</button><button class="x" onclick="trRm('${t.id}')">✕</button></div>
+${l.react?`<div class="mu">Reacción hoy: ${esc(l.react)}</div>`:''}</div>`}
+const T=id=>S.tr.find(t=>t.id==id);
+function trDone(id){const t=T(id),d=today();t.log[d]=t.log[d]||{};t.log[d].done=!t.log[d].done;save();R()}
+function trReact(id){const t=T(id),d=today();form('Reacción de la piel',[['react','Describe cómo reaccionó tu piel','ta']],t.log[d]||{},o=>{t.log[d]=t.log[d]||{};t.log[d].react=o.react})}
+function trSn(id){const t=T(id),d=today();t.skip[d]=true;t.dates.push(addD(d,1));save();R()}
+function trRm(id){if(confirm('¿Eliminar tratamiento?')){S.tr=S.tr.filter(t=>t.id!=id);save();R()}}
+const TF=[['n','Nombre','text'],['st','Estado','text'],['day','Día semanal','s:,0 domingo,1 lunes,2 martes,3 miércoles,4 jueves,5 viernes,6 sábado'],['dates','Fecha puntual (opcional)','date'],['freq','Frecuencia','text'],['dur','Duración','text'],['instr','Instrucciones (según el producto)','ta']];
+function trEd(id){const t=id?T(id):null,v=t?Object.assign({},t,{day:t.day==null?'':t.day+' '+DN[t.day],dates:''}):{day:''};
+form(t?'Editar tratamiento':'Nuevo tratamiento',TF,v,o=>{const n=t||Object.assign(mk(''),{log:{},dates:[],skip:{}});n.n=o.n||'Sin nombre';n.st=o.st;n.day=o.day?+o.day[0]:null;if(o.dates)n.dates.push(o.dates);n.freq=o.freq;n.dur=o.dur;n.instr=o.instr;if(!t)S.tr.push(n)})}
+/* diario */
+const JF=[['d','Fecha','date'],['angle','Ángulo','s:Frente,Perfil izquierdo,Perfil derecho'],['photo','Fotografía','file'],['tex','Textura (1-5)','s:—,1,2,3,4,5'],['hid','Hidratación (1-5)','s:—,1,2,3,4,5'],['lum','Luminosidad (1-5)','s:—,1,2,3,4,5'],['acne','Acné (0-5)','s:—,0,1,2,3,4,5'],['pn','Puntos negros (0-5)','s:—,0,1,2,3,4,5'],['obs','Observaciones','ta'],['react','Irritaciones o reacciones','ta']];
+const jEd=id=>{const e=id?S.jr.find(x=>x.id==id):null;form(e?'Editar registro':'Nuevo registro',JF,e||{d:today()},o=>{if(e)Object.assign(e,o);else S.jr.push(Object.assign({id:uid()},o))})};
+const jRm=id=>{if(confirm('¿Eliminar registro y foto?')){S.jr=S.jr.filter(x=>x.id!=id);save();R()}};
+function jView(){const j=[...S.jr].sort((a,b)=>b.d.localeCompare(a.d));const opts=s=>`<option value="">Elegir…</option>`+j.map(e=>`<option value="${e.id}" ${e.id==s?'selected':''}>${fl(e.d,{day:'numeric',month:'short',year:'numeric'})} · ${e.angle}</option>`).join('');
+const a=S.jr.find(x=>x.id==cmpA),b=S.jr.find(x=>x.id==cmpB),pic=e=>e?(e.photo?`<img class="ph" src="${e.photo}">`:'<div class="mu">Sin foto</div>')+`<div class="mu">${fl(e.d,{day:'numeric',month:'short',year:'numeric'})}</div>`:'<div class="mu">—</div>';
+return`<button class="b" onclick="jEd()">+ Nuevo registro</button><div class="card"><h3>Comparar</h3><select onchange="cmpA=this.value;R()">${opts(cmpA)}</select><div style="height:6px"></div><select onchange="cmpB=this.value;R()">${opts(cmpB)}</select>${a||b?`<div class="pg" style="margin-top:10px"><div>${pic(a)}</div><div>${pic(b)}</div></div>`:''}</div>
+${j.map(e=>`<div class="card"><div class="row">${e.photo?`<img src="${e.photo}" style="width:72px;height:72px;object-fit:cover;border-radius:14px">`:''}<div style="flex:1"><b>${fl(e.d,{day:'numeric',month:'short',year:'numeric'})}</b> <span class="tag">${e.angle}</span><div class="mu">Textura ${e.tex} · Hidrat. ${e.hid} · Lumin. ${e.lum} · Acné ${e.acne} · P. negros ${e.pn}</div></div></div>${e.obs?`<div>${esc(e.obs)}</div>`:''}${e.react?`<div class="mu">Reacción: ${esc(e.react)}</div>`:''}<button class="x" onclick="jEd('${e.id}')">Editar</button><button class="x" onclick="jRm('${e.id}')">Eliminar</button></div>`).join('')||'<p class="mu">Aún no hay fotos. Las fotos se guardan solo en este dispositivo.</p>'}`}
+/* inventario */
+const IF=[['n','Nombre','text'],['brand','Marca','text'],['cat','Categoría','text'],['photo','Fotografía','file'],['ing','Ingredientes','ta'],['buy','Fecha de compra','date'],['open','Fecha de apertura','date'],['end','Fecha estimada de finalización','date'],['freq','Frecuencia de uso','text'],['st','Estado','s:en uso,pendiente,terminado,por comprar']];
+const iEd=id=>{const e=id?S.inv.find(x=>x.id==id):null;form(e?'Editar producto':'Nuevo producto',IF,e||{st:'en uso'},o=>{if(e)Object.assign(e,o);else S.inv.push(Object.assign({id:uid()},o))})};
+const iRm=id=>{if(confirm('¿Eliminar producto?')){S.inv=S.inv.filter(x=>x.id!=id);save();R()}};
+const iView=()=>`<button class="b" onclick="iEd()">+ Nuevo producto</button><p class="mu">Datos no completados quedan en blanco: complétalos tú.</p>${S.inv.map(e=>`<div class="card"><div class="row">${e.photo?`<img src="${e.photo}" style="width:56px;height:56px;object-fit:cover;border-radius:12px">`:''}<div style="flex:1"><b>${esc(e.n)}</b> <span class="tag">${e.st}</span><div class="mu">${esc(e.brand||'Marca pendiente')} · ${esc(e.cat)}${e.freq?' · '+esc(e.freq):''}${e.end?' · termina ~'+fl(e.end):''}</div></div></div><button class="x" onclick="iEd('${e.id}')">Editar</button><button class="x" onclick="iRm('${e.id}')">Eliminar</button></div>`).join('')}`;
+/* vistas */
+function dayItems(d){const [x,t]=faceDone(d),hs=S.h[S.h.mode].filter(s=>(S.h.done[d]||{})[s.id]).length,o=[];o.push(`Rutina facial: ${x}/${t} pasos`);
+S.tr.filter(t=>sched(t,d)).forEach(t=>o.push(`Tratamiento: ${esc(t.n)} ${t.log[d]&&t.log[d].done?'✓':'(pendiente)'}`));
+if(hs)o.push(`Cabello: ${hs} pasos realizados`);S.jr.filter(e=>e.d==d).forEach(e=>o.push('Foto: '+e.angle));return o}
+function weekStrip(){const s=addD(today(),-wd(today()));return`<div class="wk">${[0,1,2,3,4,5,6].map(i=>{const d=addD(s,i),[x,t]=faceDone(d);return`<div class="${d==today()?'t':''} ${d==sel?'s':''}" onclick="sel='${d}';R()">${DS[i]}<b>${dt(d).getDate()}</b>${x?'<div class="dot"></div>':'<div style="height:8px"></div>'}</div>`}).join('')}</div>`}
+function home(){const d=today(),[x,t]=faceDone(d),n=nextTr(),p=t?Math.round(x/t*100):0,buy=S.inv.filter(i=>i.st=='por comprar');
+return`<h1>Hola${S.set.name?', '+esc(S.set.name):''}</h1><div class="mu">${fl(d,{weekday:'long',day:'numeric',month:'long',year:'numeric'})}</div>
+<div class="card"><div class="row sp"><b>Progreso de hoy</b><span>${x}/${t}</span></div><div class="bar"><i style="width:${p}%"></i></div></div>
+${routCard('am','Rutina de mañana')}${routCard('pm','Rutina de noche')}
+<div class="card"><h3>Próximo tratamiento</h3>${n?`<div>${n[1].map(t=>esc(t.n)).join(', ')}</div><div class="mu">${n[0]==d?'Hoy':fl(n[0],{weekday:'long',day:'numeric',month:'short'})}</div>`:'<div class="mu">Sin tratamientos programados.</div>'}</div>
+<div class="card"><h3>Recordatorios</h3><div class="it">🌅 Rutina AM · ${S.set.am}</div><div class="it">🌙 Rutina PM · ${S.set.pm}</div>${[1,2,3,4,5,6,7].map(i=>addD(d,i)).flatMap(x=>S.tr.filter(t=>sched(t,x)).map(t=>`<div class="it">✨ ${esc(t.n)} · ${fl(x,{weekday:'short',day:'numeric'})}</div>`)).join('')}${buy.length?`<div class="it">🛍 Por comprar: ${buy.map(b=>esc(b.n)).join(', ')}</div>`:''}</div>
+<div class="card"><h3>Semana</h3>${weekStrip()}</div>
+<div class="card row sp"><div><h3>Evolución</h3><div class="mu">${S.jr.length} fotos guardadas</div></div><button class="b" onclick="tab='face';sub='dia';R()">Añadir foto</button></div>`}
+function face(){const s=[['rut','Rutinas'],['tra','Tratamientos'],['dia','Diario'],['inv','Inventario']];
+return`<h1>Mi rostro</h1><div class="seg">${s.map(a=>`<button class="${sub==a[0]?'on':''}" onclick="sub='${a[0]}';R()">${a[1]}</button>`).join('')}</div>`+
+(sub=='rut'?routCard('am','Rutina AM',1)+routCard('pm','Rutina PM',1):sub=='tra'?`<button class="b" onclick="trEd()">+ Nuevo tratamiento</button>`+S.tr.map(trCard).join(''):sub=='dia'?jView():iView())}
+function hair(){const m=S.h.mode,d=today(),hl=S.h.log,w=S.h.wash[m],r7=hl.filter(l=>l.d>=addD(d,-6)&&l.heat).length,over=r7>=(+S.set.heat||2);
+return`<h1>Mi cabello</h1><div class="mu">Ondulado/rizado ~2C · teñido · antes con keratina</div>
+<div class="seg"><button class="${m=='crespo'?'on':''}" onclick="S.h.mode='crespo';save();R()">Cabello crespo</button><button class="${m=='liso'?'on':''}" onclick="S.h.mode='liso';save();R()">Cabello liso</button></div>
+${over?`<div class="al">⚠️ Registraste calor ${r7} veces en los últimos 7 días (tu límite: ${S.set.heat}). Considera dar un descanso al cabello.</div>`:''}
+<div class="card"><h3>${m=='crespo'?'Rutina de hoy · crespo':'Rutina de hoy · liso'}</h3>${steps(m,d,S.h.done[d]||{},1)}<button class="g" style="margin-top:8px" onclick="adS('${m}')">+ Añadir paso</button></div>
+<div class="card"><h3>Días de lavado</h3><div class="wk" style="margin-top:8px">${[1,2,3,4,5,6,0].map(i=>`<div class="${w.includes(i)?'s':''}" onclick="wsh(${i})">${DS[i]}<b>${DN[i].slice(0,3)}</b></div>`).join('')}</div></div>
+<div class="card"><h3>Estado del cabello</h3><button class="b" onclick="hLog()">Registrar hoy</button>${[...hl].reverse().slice(0,6).map(l=>`<div class="it">${fl(l.d)} ${l.heat?'🔥 calor':''}<div class="mu">${esc(l.note)}</div></div>`).join('')}</div>`}
+const wsh=i=>{const w=S.h.wash[S.h.mode],k=w.indexOf(i);k<0?w.push(i):w.splice(k,1);save();R()};
+const hLog=()=>form('Estado del cabello',[['d','Fecha','date'],['heat','¿Usaste calor (plancha, secador)?','s:No,Sí'],['note','Estado / observaciones','ta']],{d:today()},o=>S.h.log.push({d:o.d,heat:o.heat=='Sí',note:o.note}));
+function cald(){const m=vm,[y,mo]=m.split('-').map(Number),f=new Date(y,mo-1,1).getDay(),n=new Date(y,mo,0).getDate(),c=[];
+for(let i=0;i<f;i++)c.push('<div></div>');for(let i=1;i<=n;i++){const d=m+'-'+String(i).padStart(2,'0'),[x]=faceDone(d),tr=S.tr.some(t=>sched(t,d));c.push(`<div class="${d==today()?'t':''} ${d==sel?'s':''}" style="${d==today()?'background:var(--nu)':''};${d==sel?'outline:2px solid var(--rd)':''}" onclick="sel='${d}';R()">${i}${x||tr?`<div class="dot"></div>`:'<div style="height:8px"></div>'}</div>`)}
+const week=()=>{const s=addD(sel,-wd(sel));return[0,1,2,3,4,5,6].map(i=>{const d=addD(s,i);return`<div class="card"><b>${fl(d,{weekday:'long',day:'numeric'})}</b>${dayItems(d).map(x=>`<div class="mu">${x}</div>`).join('')}</div>`}).join('')};
+return`<h1>Calendario</h1><div class="seg">${[['mes','Mes'],['sem','Semana'],['dia','Día']].map(a=>`<button class="${cal==a[0]?'on':''}" onclick="cal='${a[0]}';R()">${a[1]}</button>`).join('')}</div>
+${cal=='mes'?`<div class="card"><div class="row sp"><button class="g" onclick="mv(-1)">‹</button><b>${new Date(y,mo-1).toLocaleDateString('es-CO',{month:'long',year:'numeric'})}</b><button class="g" onclick="mv(1)">›</button></div><div class="mg" style="margin-top:8px">${DS.map(x=>`<div class="h">${x}</div>`).join('')}${c.join('')}</div></div>`:''}
+${cal=='sem'?week():`<div class="card"><h3>${fl(sel,{weekday:'long',day:'numeric',month:'long'})}</h3>${dayItems(sel).map(x=>`<div class="it">${x}</div>`).join('')}${sel==today()?'':`<div class="mu">Para marcar pasos, ve a Inicio (marcas del día actual).</div>`}</div>`}
+<div class="card"><h3>Avisos y horarios</h3><button class="g" onclick="setF()">Cambiar horarios y ajustes</button><p class="mu">Notificaciones push: <b>pendiente de configuración</b>. En iPhone requieren servidor y la app instalada en pantalla de inicio; por ahora los recordatorios se muestran dentro de la app.</p></div>`}
+const mv=n=>{const [y,m]=vm.split('-').map(Number),d=new Date(y,m-1+n,1);vm=iso(d).slice(0,7);R()};
+const setF=()=>form('Ajustes',[['name','Tu nombre','text'],['am','Hora rutina AM','time'],['pm','Hora rutina PM','time'],['heat','Máx. usos de calor por semana (alerta)','number']],S.set,o=>Object.assign(S.set,o));
+function prog(){const days=[...Array(14)].map((_,i)=>addD(today(),i-13)),pc=days.map(d=>{const[x,t]=faceDone(d);return t?x/t:0}),cnt={};
+Object.keys(S.done).forEach(d=>Object.keys(S.done[d]).forEach(id=>{if(S.done[d][id]){const s=[...S.r.am,...S.r.pm].find(x=>x.id==id);if(s)cnt[s.n]=(cnt[s.n]||0)+1}}));
+const top=Object.entries(cnt).sort((a,b)=>b[1]-a[1]).slice(0,5),tr=S.tr.reduce((a,t)=>a+Object.values(t.log).filter(l=>l.done).length,0),
+re=[...S.tr.flatMap(t=>Object.entries(t.log).filter(l=>l[1].react).map(l=>[l[0],t.n,l[1].react])),...S.jr.filter(e=>e.react).map(e=>[e.d,'Diario',e.react])].sort((a,b)=>b[0].localeCompare(a[0])),
+mon={};S.jr.forEach(e=>{const k=e.d.slice(0,7);(mon[k]=mon[k]||[]).push(e)});const av=(a,k)=>{const v=a.map(e=>+e[k]).filter(x=>x>=0);return v.length?(v.reduce((p,c)=>p+c,0)/v.length).toFixed(1):'—'};
+const hd=Object.values(S.h.done).reduce((a,o)=>a+Object.values(o).filter(Boolean).length,0);
+return`<h1>Mi progreso</h1><div class="card"><h3>Cumplimiento (14 días)</h3><div class="cols" style="margin-top:8px">${pc.map(p=>`<i style="height:${Math.max(3,p*100)}%"></i>`).join('')}</div></div>
+<div class="card"><h3>Resumen</h3><div class="it">Tratamientos realizados: <b>${tr}</b></div><div class="it">Pasos de cabello realizados: <b>${hd}</b></div><div class="it">Registros de calor en cabello: <b>${S.h.log.filter(l=>l.heat).length}</b></div></div>
+<div class="card"><h3>Productos más usados</h3>${top.map(a=>`<div class="it row sp"><span>${esc(a[0])}</span><b>${a[1]}</b></div>`).join('')||'<div class="mu">Marca tus rutinas para ver datos.</div>'}</div>
+<div class="card"><h3>Evolución mensual de la piel</h3>${Object.keys(mon).sort().map(k=>`<div class="it"><b>${k}</b><div class="mu">Textura ${av(mon[k],'tex')} · Hidrat. ${av(mon[k],'hid')} · Lumin. ${av(mon[k],'lum')} · Acné ${av(mon[k],'acne')} · P. negros ${av(mon[k],'pn')}</div></div>`).join('')||'<div class="mu">Sin registros en el diario.</div>'}</div>
+<div class="card"><h3>Reacciones registradas</h3>${re.map(r=>`<div class="it"><b>${fl(r[0])}</b> · ${esc(r[1])}<div class="mu">${esc(r[2])}</div></div>`).join('')||'<div class="mu">Ninguna.</div>'}</div>
+<div class="card"><h3>Datos</h3><button class="b" onclick="ex()">Exportar mis datos</button> <button class="g" onclick="if(confirm('¿Borrar todo y reiniciar?')){localStorage.removeItem(K);S=def();R()}">Reiniciar</button>
+<p class="mu">Todo se guarda de forma privada en este navegador. Las estadísticas son solo registro personal; la app no diagnostica ni sugiere combinar activos.</p>
+<h3 style="margin-top:12px">Estado de funciones</h3><div class="mu">Implementado: rutinas, tratamientos, calendario, diario fotográfico, cabello, inventario, estadísticas, exportación.<br>Pendiente de configuración: notificaciones push, sincronización en la nube, modo sin conexión (service worker). Para instalar: Safari › Compartir › Añadir a pantalla de inicio.</div></div>`}
+function ex(){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(S)],{type:'application/json'}));a.download='my-beauty-routine-'+today()+'.json';a.click()}
+const TABS=[['home','🏠','Inicio',home],['face','🌸','Mi rostro',face],['hair','💆','Mi cabello',hair],['cal','📅','Calendario',cald],['prog','📈','Mi progreso',prog]];
+function R(){$('#app').innerHTML=TABS.find(t=>t[0]==tab)[3]();$('#nav').innerHTML=TABS.map(t=>`<button class="${t[0]==tab?'on':''}" onclick="tab='${t[0]}';window.scrollTo(0,0);R()"><span>${t[1]}</span>${t[2]}</button>`).join('')}
+$('#md').onclick=e=>{if(e.target.id=='md')cm()};R();
+</script></body></html>
